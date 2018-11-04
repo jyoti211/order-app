@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 8080;
 const GOOGLE_KEY = ""; //Please set google api key here
 
 // database configs
-let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://mongodb/orders';
+let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/orders';
 if (ENV === 'test') {
   MONGODB_URI = global.__MONGO_URI__;
 }
