@@ -3,10 +3,10 @@ const APP_NAME = 'Order Delivery App';
 const ENV = process.env.NODE_ENV;
 const PORT = process.env.PORT || 8080;
 //Google Distance API setting
-const GOOGLE_KEY = ""; //Please set google api key here
+const GOOGLE_KEY = "AIzaSyDA2_qajVFEZPNuUjMVVe9subD1ssFMClk"; //Please set google api key here
 
 // database configs
-let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/orders';
+let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://mongodb/orders';
 if (ENV === 'test') {
   MONGODB_URI = global.__MONGO_URI__;
 }

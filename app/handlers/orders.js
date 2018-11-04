@@ -42,8 +42,8 @@ async function createOrder(request, response, next) {
     }
 
     try {
-        const totalDistance = await getDistance(request);
-        if(typeof totalDistance.distanceValue != "number"){
+        const distanceRes = await getDistance(request);
+        if(typeof distanceRes.distanceValue != "number"){
             apiObj = 
               new APIError(
                 500,
@@ -54,7 +54,7 @@ async function createOrder(request, response, next) {
         }
         const orderData = {
             id: mongoose.Types.ObjectId(),
-            distance: totalDistance.distanceValue,
+            distance: distanceRes.distanceValue,
             status: "UNASSIGNED",
             origin: request.body.origin,
             destination: request.body.destination
