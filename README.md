@@ -17,6 +17,14 @@
 3.  Run `./start.sh` to download Docker, npm.
 4.  After container is started , testcase will run automatically.
 
+## Manually Starting the server and test Cases
+
+1. Ensure mongo server is up and running
+2. Run npm install
+3. Run node app/index.js
+4. Server is accessible at `http://localhost:8080`
+5. Run manual testcase suite by `npm test app/test`
+
 ## Manually Starting the docker and test Cases
 
 1. You can run `docker-compose up` from terminal
