@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "Logistic-API",
+      "name": "order-app",
       "script": "./app/index.js",
       "instances": "max",
       "exec_mode": "cluster"

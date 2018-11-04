@@ -1,4 +1,3 @@
-/** Class representing an API Error Response with a related HTTP Status Code **/
 class APIError extends Error {
   
   /**
@@ -14,6 +13,7 @@ class APIError extends Error {
         this.status = status;
         this.message = message;
     }
+    
     toJSON() {
         const {
             status,

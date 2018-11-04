@@ -1,0 +1,30 @@
+version: '3'
+services:
+  app:
+    build: .
+    command: pm2-dev ./app/index.js
+    environment:
+      NODE_ENV: development
+      NODE_APP_INSTANCE: ''
+    depends_on:
+      - mongodb
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/home/nodejs/app
+      - /home/nodejs/app/node_modules
+
+  nginx:
+    image: nginx:1.14
+    links:
+      - app
+    ports:
+      - '80:80'
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
+  mongodb:
+    image: mongo:4
+    command: mongod
+    ports:
+      - '27017:27017'

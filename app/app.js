@@ -1,6 +1,8 @@
 // npm packages
 const bodyParser = require('body-parser');
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger');
 
 // app imports
 const {
@@ -25,6 +27,10 @@ const {
 
 const app = express();
 
+ 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+
 connectToDatabase();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,8 +49,4 @@ app.all('*', methodNotAllowedHandler);
 
 app.use(globalErrorHandler);
 
-/**
- * This file does NOT run the app. It merely builds and configures it then exports it.config
- *  This is for integration tests with supertest (see __tests__).
- */
 module.exports = app;

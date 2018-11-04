@@ -57,7 +57,7 @@ orderSchema.statics = {
     },
 
     /**
-   * PUT/Update a order.
+   * Update a order.
    */
     async updateOrder(id, orderUpdate) {
         try {
@@ -80,7 +80,7 @@ orderSchema.statics = {
     }
 };
 
-/* Transform Response. */
+/* Response Transformation. */
 
 if (!orderSchema.options.toObject) orderSchema.options.toObject = {};
   orderSchema.options.toObject.transform = (doc, ret) => {

@@ -1,0 +1,356 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is API documentaion for a order delivery app with three methods.",
+    "version": "1.0.0",
+    "title": "Order API Documentaion"
+  },
+  "host": "localhost:8080/api-docs",
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "ORDERS",
+      "description": ""
+    }
+  ],
+  
+  "paths": {
+    "/orders": {
+      "post": {
+        "tags": [
+          "create order"
+        ],
+        "summary": "Create a new order",
+        "description": "",
+        "operationId": "createOrder",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Order object to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateOrders"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order created",
+            "schema": {
+              "$ref": "#/definitions/OrdersResponse"
+            }
+          },
+          "500": {
+            "description": "An unknown server error occurred",
+            "schema": {
+              "$ref": "#/definitions/UnknownErrorResponse"
+            }
+          },
+          "500": {
+            "description": "INCORRECT_SCHEMA_GIVEN",
+            "schema": {
+              "$ref": "#/definitions/IncorrrectSchemaResponse"
+            }
+          },
+          "500": {
+            "description": "INCORRECT_DISTANCE_TYPE_GIVEN",
+            "schema": {
+              "$ref": "#/definitions/IncorrectDistanceResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "get orders"
+        ],
+        "summary": "Get All Orders",
+        "description": "",
+        "operationId": "getOrders",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The number of items to skip before starting to collect the result set",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The numbers of items to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order list",
+            "schema": {
+              "$ref": "#/definitions/OrdersListResponse"
+            }
+          }
+        }
+      }
+    },
+    "/orders/{id}": {
+      "patch": {
+        "tags": [
+          "update order"
+        ],
+        "summary": "Update an existing order",
+        "description": "",
+        "operationId": "updateOrder",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Order object that needs to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Order object to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateOrders"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order updated",
+            "schema": {
+              "$ref": "#/definitions/OrdersUpdatedResponse"
+            }
+          },
+          "409": {
+            "description": "ORDER_ALREADY_BEEN_TAKEN",
+            "schema": {
+              "$ref": "#/definitions/DuplicateOrderResponse"
+            }
+          },
+          "500": {
+            "description": "An unknown server error occurred",
+            "schema": {
+              "$ref": "#/definitions/UnknownErrorResponse"
+            }
+          },
+          "500": {
+            "description": "INCORRECT_SCHEMA_GIVEN",
+            "schema": {
+              "$ref": "#/definitions/IncorrrectSchemaResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateOrders": {
+      "type": "object",
+      "properties": {
+        "origin": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_latitude": {
+                "type": "string"
+              },
+              "start_longitude": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "destination": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_latitude": {
+                "type": "string"
+              },
+              "start_longitude": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Orders": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "distance": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string",
+          "description": "Order Status",
+          "enum": [
+            "UNASSIGNED",
+            "TAKEN"
+          ]
+        },
+        "origin": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_latitude": {
+                "type": "string"
+              },
+              "start_longitude": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "destination": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_latitude": {
+                "type": "string"
+              },
+              "start_longitude": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "OrdersResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "distance": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "UNASSIGNED"
+          ]
+        }
+      }
+    },
+    "OrdersListResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "distance": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "UNASSIGNED",
+            "TAKEN"
+          ]
+        }
+      }
+    },
+    "IncorrrectSchemaResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "enum": [
+            "INCORRECT_SCHEMA_GIVEN"
+          ]
+        }
+      }
+    },
+    "DuplicateOrderResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "enum": [
+            "ORDER_ALREADY_BEEN_TAKEN"
+          ]
+        }
+      }
+    },
+    "UnknownErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "enum": [
+            "An unknown server error occurred"
+          ]
+        }
+      }
+    },
+    "IncorrectDistanceResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "enum": [
+            "INCORRECT_DISTANCE_TYPE_GIVEN"
+          ]
+        }
+      }
+    },
+    "UpdateOrders": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "TAKEN"
+          ]
+        }
+      }
+    },
+    "OrdersUpdatedResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "SUCCESS"
+          ]
+        }
+      }
+    }
+  }
+}

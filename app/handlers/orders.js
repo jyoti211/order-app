@@ -1,4 +1,3 @@
-// npm packages
 const {
     validate
 } = require('jsonschema');
@@ -31,25 +30,28 @@ distance.apiKey = GOOGLE_KEY;
  */
 async function createOrder(request, response, next) {
     const validation = validate(request.body, orderNewSchema);
+    
     if (!validation.valid) {
-        return next(
+        apiObj = 
             new APIError(
                 500,
-                "REQUEST_BODY_INCORRECT"
-            )
-        );
+                "INCORRECT_SCHEMA_GIVEN"
+            );
+        jsonResponse = apiObj.toJSON();
+        return response.status(500).send(jsonResponse);
     }
 
     try {
         const totalDistance = await getDistance(request);
         //const totalDistance = 20;
         if(typeof totalDistance != "number"){
-            return next(
+            apiObj = 
               new APIError(
                 500,
-                "REQUEST_BODY_INCORRECT"
-              )
+                "INCORRECT_DISTANCE_TYPE_GIVEN"
             );
+            jsonResponse = apiObj.toJSON();
+            return response.status(500).send(jsonResponse);
         }
         const orderData = {
             id: mongoose.Types.ObjectId(),
@@ -80,12 +82,13 @@ async function updateOrder(request, response, next) {
 
     const validation = validate(request.body, orderUpdateSchema);
     if (!validation.valid) {
-        return next(
+        apiObj = 
             new APIError(
                 500,
-                "REQUEST_BODY_INCORRECT"
-            )
-        );
+                "INCORRECT_SCHEMA_GIVEN"
+            );
+        jsonResponse = apiObj.toJSON();
+        return response.status(500).send(jsonResponse);
     }
 
     try {
@@ -99,12 +102,12 @@ async function updateOrder(request, response, next) {
 }
 
 /**
- * List all the orders. Query params ?skip=0&limit=1000 
+ * List all the orders. Query params ?page=1&limit=2 
  */
 async function readOrder(request, response, next) {
-    /* pagination validation */
-    let limit = parsePageLimit.parsePageLimitValue(request.query.limit, 'limit');
-    let page = parsePageLimit.parsePageLimitValue(request.query.page, 'page');
+    let limit = parsePageLimit.parsePageLimitValue(request.query.limit, 'limit', response);
+    let page = parsePageLimit.parsePageLimitValue(request.query.page, 'page', response);
+
     let skip = limit * (page - 1) || 0;
 
     if (typeof page !== 'number') {

@@ -245,7 +245,7 @@ describe('GET /', () => {
             });
     });
 
-    it('Should return wrong limit datatype error with (limit=abc)', (done) => {
+    it('Should return wrong limit datatype error with (limit=xyz)', (done) => {
         chai.request(server)
             .get('/orders?page=1&limit=xyz')
             .end(function(err, res) {
@@ -254,7 +254,7 @@ describe('GET /', () => {
             });
     });
 
-    it('Should return wrong page datatype error with (page=abc)', (done) => {
+    it('Should return wrong page datatype error with (page=xyz)', (done) => {
         chai.request(server)
             .get('/orders?page=xyz&limit=1')
             .end(function(err, res) {

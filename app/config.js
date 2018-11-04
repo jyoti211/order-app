@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
-
 const APP_NAME = 'Order Delivery App';
 const ENV = process.env.NODE_ENV;
 const PORT = process.env.PORT || 8080;
-
 //Google Distance API setting
 const GOOGLE_KEY = ""; //Please set google api key here
 
@@ -19,7 +17,7 @@ if (ENV === 'development' || ENV === 'test') {
 }
 
 /**
- * Connect to mongoose asynchronously or bail out if it fails
+ * Connect to mongoose asynchronously.
  */
 async function connectToDatabase() {
     try {
@@ -31,8 +29,7 @@ async function connectToDatabase() {
         );
         console.log(`${APP_NAME} successfully connected to database.`);
       } catch (error) {
-        console.log(error);
-        process.exit(1);
+            process.exit(1);
     }
 }
 
