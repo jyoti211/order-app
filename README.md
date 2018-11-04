@@ -3,23 +3,19 @@
 
 ## About
 
-- [Docker](https://www.docker.com/) as the container service to isolate the environment.
-- [Node.js](https://nodejs.org/en/) (Long-Term-Support Version) as the run-time environment to run JavaScript.
-- [Express.js](https://expressjs.com/) as the server framework / controller layer
-- [MongoDB](https://www.mongodb.com/) as the database layer
-- [Mongoose](https://mongoosejs.com/) as the "ODM" / model layer
+- [Docker](https://www.docker.com/) Docker is used on a large scale for running server applications but nothing stands in the way to use it in the development process. Additionally, there's a high probability that our code will work in the same way on server environment if we test it first on a local machine using same technologies.
+- [Node.js](https://nodejs.org/en/) It provide run-time environment to run JavaScript files.
+- [Express.js](https://expressjs.com/) Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
+- [MongoDB](https://www.mongodb.com/) It is non relational database used to provide database layer
+- [Mongoose](https://mongoosejs.com/) Mongoose provides a straight-forward, schema-based solution to model your application data. It includes built-in type casting, validation, query building, business logic hooks and more, out of the box.
 - [NGINX](https://docs.nginx.com/nginx/admin-guide/content-cache/content-caching/) as a proxy / content-caching layer
 
 ## How to Install & Run
 
-1.  Clone the repo
-2.  Set Google Distance API key in app/config.js file line no. 8
-3.  Run `./start.sh` to download Docker CE and Docker Compose if not exist
-    after installing them start three containers:
-    - the MongoDB database container
-    - the Node.js app container
-    - the NGINX proxy container
-4.  After starting container , testcases will run automatically
+1.  Clone the repo.
+2.  Set Google Distance API key in app/config.js file line no. 6.
+3.  Run `./start.sh` to download Docker, npm.
+4.  After container is started , testcase will run automatically.
 
 ## Manually Starting the docker and test Cases
 
@@ -29,24 +25,24 @@
 
 ## How to Run Tests (Explicity from cli)
 
- You should be able to run `npm install` followed by `npm test app/test` to run everything (assuming you have the LTS version of Node installed on your machine).
+ You should be able to run `npm install` and mongodb server should be started followed by `npm test app/test` to run everything (assuming you have the LTS version of Node installed on your machine).
 
 ## App Structure
+
+**./app**
+
+- `handlers` It is used to handle common erors and orders functionality having `request`, `response`, and `next` parameters.
+- `helpers` It contains apiError and parsing page and limit functionality for application.
+- `models` It is used for Mongoose schema definitions and associated models
+- `routers` It is sed for RESTful route declarations using express.Router module that utilize the functions in `handlers`
+- `schemas` It conatins JSONSchema validation schemas for creating or updating a Order.
+- `app.js` It is used to  configure the express app
+- `config.js` It is the app-specific config that you will want to customize for your app
+- `index.js` Is the entrypoint that actually starts the application
 
 **./test**
 
 - this folder contains test case run using `npm test app/test` which in turn uses [Mocha]
-
-**./app**
-
-- `handlers` are Express.js route handlers that have `request`, `response`, and `next` parameters.
-- `helpers` are raw JS "classes" and utility functions for use across the app
-- `models` are [Mongoose schema] definitions and associated models
-- `routers` are RESTful route declarations using [express.Router module] that utilize the functions in `handlers`
-- `schemas` are [JSONSchema] validation schemas for creating or updating a Order.
-- `app.js` is what builds and configures the express app
-- `config.js` is the app-specific config that you will want to customize for your app
-- `index.js` is the entrypoint that actually starts the Express server
 
 **./config**
 
@@ -55,3 +51,7 @@
 ## Google API configuration ##
 
 - add google apk key in configuration file located in app/config.js
+
+
+## API Documentation
+Api documentation an be seen on url http://localhost:8080/api-docs/
