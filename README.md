@@ -20,9 +20,10 @@
 ## Manually Starting the server and test Cases
 
 1. Ensure mongo server is up and running
-2. Run node app/index.js
-2. Server is accessible at `http://localhost:8080`
-3. Run manual testcase suite by `npm test app/test`
+2. Run npm install
+3. Run node app/index.js
+4. Server is accessible at `http://localhost:8080`
+5. Run manual testcase suite by `npm test app/test`
 
 ## Manually Starting the docker and test Cases
 
