@@ -28,13 +28,14 @@ if [ ! -f /usr/bin/npm ]; then
 
 else
     echo "npm already installed.  Skipping..."
-    sudo npm install 
-    sudo docker-compose up 
-    sleep 5
-    ## Start Test Cases
-    echo 'Starting Test Cases'
-    npm test app/test
 fi
+
+sudo npm install 
+sudo docker-compose up &
+sleep 200s
+## Start Test Cases
+echo 'Starting Test Cases'
+npm test app/test
 
 
 
