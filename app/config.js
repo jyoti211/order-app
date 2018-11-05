@@ -3,7 +3,7 @@ const APP_NAME = 'Order Delivery App';
 const ENV = process.env.NODE_ENV;
 const PORT = process.env.PORT || 8080;
 //Google Distance API setting
-const GOOGLE_KEY = "AIzaSyDA2_qajVFEZPNuUjMVVe9subD1ssFMClk"; //Please set google api key here
+const GOOGLE_KEY = "AIzaSyAUT3AMxhQapsfodON_lh4WIqsmLg7Llr8"; //Please set google api key here
 
 // database configs
 let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://mongodb/orders';
@@ -29,6 +29,7 @@ async function connectToDatabase() {
         );
         console.log(`${APP_NAME} successfully connected to database.`);
       } catch (error) {
+            console.log(error);
             process.exit(1);
     }
 }

@@ -48,7 +48,7 @@ orderSchema.statics = {
                 .limit(limit)
                 .exec();
             if (!orders.length) {
-                return [];
+                return {"response":"No result found."};
             }
               return orders.map(order => order.toObject());
         } catch (err) {

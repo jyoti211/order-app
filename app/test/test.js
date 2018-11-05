@@ -30,6 +30,7 @@ describe('GET /', () => {
             .get('/')
             .end(function(err, res) {
               expect(res).to.have.status(404);
+              res.body.error.should.include('/ is not valid path to a Order Delivery App resource.');
               done();
         });
     });
@@ -48,6 +49,7 @@ describe('/POST order', () => {
             })
             .end((err, res) => {
                 expect(res).to.have.status(500);
+                res.body.error.should.include('INCORRECT_SCHEMA_GIVEN');
                 done();
             });
     });
@@ -61,6 +63,7 @@ describe('/POST order', () => {
             })
             .end((err, res) => {
                 expect(res).to.have.status(200);
+                res.body.status.should.include('UNASSIGNED');
                 done();
               data = res;
             });
@@ -75,7 +78,7 @@ describe('/POST order', () => {
             })
             .end((err, res) => {
                 expect(res).to.have.status(200);
-                expect(res.body.status).to.be.equal('UNASSIGNED');
+                res.body.status.should.include('UNASSIGNED');
                 done();
             });
     });
@@ -89,6 +92,7 @@ describe('/POST order', () => {
             })
             .end((err, res) => {
                 expect(res).to.have.status(500);
+                res.body.error.should.include('INCORRECT_SCHEMA_GIVEN');
                 done();
             });
     });
@@ -102,6 +106,7 @@ describe('/POST order', () => {
             })
             .end((err, res) => {
                 expect(res).to.have.status(500);
+                res.body.error.should.include('INCORRECT_SCHEMA_GIVEN');
                 done();
             });
     });
@@ -115,6 +120,7 @@ describe('/POST order', () => {
             })
             .end((err, res) => {
                 expect(res).to.have.status(500);
+                res.body.error.should.include('INCORRECT_SCHEMA_GIVEN');
                 done();
             });
     });
@@ -142,6 +148,7 @@ describe('/POST order', () => {
             })
             .end((err, res) => {
                 expect(res).to.have.status(500);
+                res.body.error.should.include('INCORRECT_SCHEMA_GIVEN');
                 done();
             });
     });
@@ -188,6 +195,7 @@ describe('/PATCH /orders/:id', () => {
                         wrong_parm: "TAKEN" //Wrong format as param not supported
                     }).end((err, res) => {
                         expect(res).to.have.status(500);
+                        res.body.error.should.include('INCORRECT_SCHEMA_GIVEN');
                         done();
                     })
             });
@@ -220,6 +228,8 @@ describe('/PATCH /orders/:id', () => {
                       status: "TAKEN"
                   }).end((err, res) => {
                       expect(res).to.have.status(409);
+                      //console.log(res.body);
+                      //res.body.error.should.include('ORDER_ALREADY_BEEN_TAKEN');
                       chai.request(server)
                           .patch('/orders/' + orderResponse.body[0].id)
                           .send({
@@ -250,6 +260,7 @@ describe('GET /', () => {
             .get('/orders?page=1&limit=xyz')
             .end(function(err, res) {
                 expect(res).to.have.status(500);
+                res.body.error.should.include("Invalid limit: 'xyz', limit needs to be an integer.");
                 done();
             });
     });
@@ -259,24 +270,27 @@ describe('GET /', () => {
             .get('/orders?page=xyz&limit=1')
             .end(function(err, res) {
                 expect(res).to.have.status(500);
+                res.body.error.should.include("Invalid page: 'xyz', page needs to be an integer.");
                 done();
             });
     });
 
     it('Should return error with limit value less than 1 (limit=-1)', (done) => {
         chai.request(server)
-            .get('/orders?page=xyz&limit=1')
+            .get('/orders?page=1&limit=-1')
             .end(function(err, res) {
                 expect(res).to.have.status(500);
+                res.body.error.should.include("Number should be equal or greater than 1.");
                 done();
             });
     });
 
     it('Should return error with page value less than 1 (page=0)', (done) => {
         chai.request(server)
-            .get('/orders?page=xyz&limit=1')
+            .get('/orders?page=-1&limit=1')
             .end(function(err, res) {
                 expect(res).to.have.status(500);
+                res.body.error.should.include("Number should be equal or greater than 1.");
                 done();
             });
     });

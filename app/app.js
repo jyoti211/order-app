@@ -32,6 +32,12 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 connectToDatabase();
+app.use(function(err, req, res, next){
+	if(res.headerSent){
+		return next(err);
+	}
+	return res.status(err.status||HTTP_SERVER_ERROR).render(500);
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ type: '*/*' }));

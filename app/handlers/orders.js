@@ -108,11 +108,12 @@ async function readOrder(request, response, next) {
     let page = parsePageLimit.parsePageLimitValue(request.query.page, 'page', response);
 
     let skip = limit * (page - 1) || 0;
-
     if (typeof page !== 'number') {
         return next(page);
     } else if (typeof limit !== 'number') {
         return next(limit);
+    }else if(skip < 0){
+        return next(skip);
     }
 
     try {
@@ -135,12 +136,17 @@ async function getDistance(request, response, next) {
           },
           (err, data) => {
             if (err) {
-              reject(err);
+                reject(err);
             }
             resolve(data);
           });
     });
 }
+
+process.on('unhandledRejection', error => {
+  console.log('unhandledRejection', error.message);
+});
+
 
 module.exports = {
   createOrder,
