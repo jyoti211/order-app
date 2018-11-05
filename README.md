@@ -21,6 +21,7 @@
 
 1. Ensure mongo server is up and running
 2. Run npm install
+3. change mongodb configuration in variable MONGODB_URI in config.js in line 6 to mongodb://localhost:27017/orders
 3. Run node app/index.js
 4. Server is accessible at `http://localhost:8080`
 5. Run manual testcase suite by `npm test app/test`
