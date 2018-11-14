@@ -29,12 +29,8 @@
   "devDependencies": {
     "babel-eslint": "^9.0.0",
     "babel-preset-es2017": "^6.24.1",
-    "chai": "^4.2.0",
-    "chai-http": "^4.2.0",
     "eslint": "^5.8.0",
-    "mocha": "^5.2.0",
     "mongodb-memory-server": "^2.2.0",
-    "supertest": "^3.3.0",
-    "swagger-ui-express": "^4.0.1"
+    "supertest": "^3.3.0"
   }
 }
