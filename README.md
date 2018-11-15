@@ -1,5 +1,5 @@
 # Order Delivery RESTful API
-## Featuring Docker, Node, Express, MongoDB, Mongoose & NGINX
+## Featuring Docker, Node, Express, MongoDB, Mongoose
 
 ## About
 
@@ -8,7 +8,6 @@
 - [Express.js](https://expressjs.com/) Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 - [MongoDB](https://www.mongodb.com/) It is non relational database used to provide database layer
 - [Mongoose](https://mongoosejs.com/) Mongoose provides a straight-forward, schema-based solution to model your application data. It includes built-in type casting, validation, query building, business logic hooks and more, out of the box.
-- [NGINX](https://docs.nginx.com/nginx/admin-guide/content-cache/content-caching/) as a proxy / content-caching layer
 
 ## How to Install & Run
 
@@ -55,7 +54,7 @@
 
 **./config**
 
-- config contains NGINX proxy configuration, the production pm2 configuration (the process-runner of choice).
+- the production pm2 configuration (the process-runner of choice).
 
 ## Google API configuration ##
 

@@ -14,15 +14,6 @@ services:
       - .:/home/nodejs/app
       - /home/nodejs/app/node_modules
 
-  nginx:
-    image: nginx:1.14
-    links:
-      - app
-    ports:
-      - '80:80'
-    volumes:
-      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-
   mongodb:
     image: mongo:4
     command: mongod
